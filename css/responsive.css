@@ -1,0 +1,212 @@
+/* Adattamenti reattivi */
+@media (max-height: 1400px) {
+    header {
+        height: 16vw;
+    }
+    header button {
+        font-size: 1.2em;
+        padding: 10px 20px;
+        margin: 0 10px;
+    }
+    header #social_button {
+        width: 4em;
+        height: 4em;
+        bottom: 15px;
+    }
+    #back_up_arrow {
+        width: 3em;
+        height: 3em;
+        right: 50%;
+        bottom: -35%;
+    }
+}
+@media (max-height: 1180px) {
+    header {
+        height: 12vw;
+    }
+    header button {
+        font-size: 1em;
+        padding: 8px 15px;
+        margin: 0 10px;
+    }
+    header #social_button {
+        width: 3em;
+        height: 3em;
+        bottom: 10px;
+    }
+    #back_up_arrow {
+        width: 2em;
+        height: 2em;
+        right: 50%;
+        bottom: -30%;
+    }
+}
+@media (max-width: 1180px) {
+    header {
+        height: 10vw;
+    }
+    header button {
+        font-size: 0.9em;
+        padding: 8px 15px;
+        margin: 0 10px;
+    }
+    header #social_button {
+        width: 3em;
+        height: 3em;
+        bottom: 10px;
+    }
+    #back_up_arrow {
+        width: 2em;
+        height: 2em;
+        right: 50%;
+        bottom: -30%;
+    }
+}
+/* Schermi medi come tablet */
+@media (max-width: 768px) {
+    #title h1 {
+        font-size: 5em;
+    }
+
+    #title h3 {
+        font-size: 2em;
+    }
+
+    #pfp {
+        width: 120px;
+        height: 120px;
+    }
+
+    header {
+        height: 10vw;
+    }
+
+    header button {
+        font-size: 0.9em;
+        padding: 8px 15px;
+        margin: 0 10px;
+    }
+    header #social_button {
+        opacity: 0;
+        visibility:hidden;
+        transition: opacity 0.5s ease;
+    }
+}
+@media (max-width: 480px) {
+    #social_button p {
+        position: absolute;
+        right: 110%; /* Sposta il testo a destra dell'icona */
+        top: 50%; /* Centra verticalmente il testo rispetto all'icona */
+        transform: translateY(-50%); /* Aggiungi un aggiustamento per centrare perfettamente */
+        font-size: 1em; /* Riduci la dimensione del testo */
+        opacity: 1;
+        font-family: 'Indie Flower';
+        color: rgb(230, 230, 230);
+        transition: right 0.3s ease, opacity 0.3s ease, color 0.3s ease;
+    }
+
+    #social_button {
+        width: 80px; /* Riduci le dimensioni dello sfondo */
+        height: 80px; /* Mantieni un rapporto equilibrato */
+        display: flex; /* Flexbox per centrare l'icona */
+        justify-content: center;
+        align-items: center;
+        transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
+    }
+
+    #social_button img {
+        width: 70%; /* Ingrossa l'icona per migliorarne la visibilità */
+        height: auto;
+        object-fit: contain;
+    }
+
+    #social-buttons-box {
+        flex-direction: column; /* Mantieni le icone in una riga */
+        gap: 10px; /* Distanza tra i pulsanti */
+    }
+    header #social_button {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        visibility: hidden; 
+    }
+
+    #back_up_arrow {
+        width: 2em;
+        height: 2em;
+        right: 50%;
+        bottom: -30%;
+    }
+
+    #back_up_arrow.show {
+        bottom: 10vw;
+    }
+
+    #about-me p {
+        font-size: 1em;
+        margin-top: 10px;
+    }
+}
+
+@media (max-height: 480px) {
+    header #social_button {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        visibility: hidden; 
+    }
+    #back_up_arrow {
+        width: 2em;
+        height: 2em;
+        right: 50%;
+        bottom: -30%;
+    }
+    header button {
+        font-size: 0.9em;
+        padding: 8px 15px;
+        margin: 0 10px;
+    }
+}
+
+/* Schermi piccoli come telefoni */
+@media (max-width: 480px) {
+    #title h1 {
+        font-size: 3.5em;
+    }
+
+    #title h3 {
+        font-size: 1.5em;
+    }
+
+    #pfp {
+        width: 100px;
+        height: 100px;
+        margin-top: 10px;
+    }
+
+    header {
+        height: 15vw;
+        padding-right: 10px;
+    }
+
+    header button {
+        font-size: 0.8em;
+        padding: 6px 10px;
+        margin: 0 5px;
+        width: 100px;
+    }
+
+}
+/* Adattamenti reattivi per footer */
+@media (max-width: 768px) {
+    footer {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+    }
+
+    footer .footer-left,
+    footer .footer-right {
+        justify-content: center;
+        width: 100%;
+        gap: 10px;
+    }
+}

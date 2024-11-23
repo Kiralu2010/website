@@ -1,0 +1,251 @@
+
+* {
+    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+
+
+
+/* Stile per il contenuto sovrapposto */
+.content {
+    padding-top: 10vh;
+    position: relative;
+    z-index: 1;
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* Stile per il titolo */
+#title h1 {
+    font-size: 8em;
+    font-weight: bold;
+    margin: 0;
+    color: white;
+    font-family: 'Galada', cursive;
+    text-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    animation: fadeIn 2s ease-in-out forwards;
+    animation-delay: 1s;
+    user-select: none;
+}
+
+#title h3 {
+    font-size: 3em;
+    font-weight: normal;
+    margin-top: 0.5em;
+    color: white;
+    font-family: 'Indie Flower';
+    text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    animation: fadeIn 2s ease-in-out forwards;
+    animation-delay: 1s;
+    user-select: none;
+}
+
+#pfp {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-top: 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    user-select: none;
+    animation: fadeIn 2s ease-in-out forwards;
+    opacity: 0;
+}
+
+/* Social Buttons */
+#social-buttons-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 20px;
+    gap: 20px;
+}
+header #social-buttons-box {
+    display: flex;
+    justify-content: center; /* Centra orizzontalmente */
+    align-items: center; /* Centra verticalmente */
+    gap: 20px; /* Distanza tra gli elementi */
+    position: absolute; /* Rende possibile il posizionamento assoluto */
+    top: 50%; /* Posiziona a metà altezza dell'header */
+    left: 50%; /* Posiziona a metà larghezza dell'header */
+    transform: translate(-50%, -50%); /* Centra esattamente rispetto al centro dell'header */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+header #social-buttons-box.show {
+    opacity: 1;
+    visibility:visible;
+}
+#social_button {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    z-index: 998;
+}
+
+header #social_button {
+    position: relative;
+    width: 5em;
+    height: 5em;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    padding: 5px;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+#social_button img {
+    width: 100%; /* Mantiene il pulsante pieno */
+    height: auto;
+    object-fit: contain; /* Adatta l'immagine al contenitore */
+}
+
+
+#social_button_header img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+#social_button p {
+    bottom: 90%;
+    position: absolute;
+    font-size: 2em;
+    opacity: 1;
+    font-family: 'Indie Flower';
+    color: rgb(230, 230, 230);
+    transition: bottom 0.3s ease, opacity 0.3s ease, color 0.3s ease;
+}
+
+#social_button:hover {
+    transform: translateY(-2px);
+}
+
+#social_button:hover p {
+    bottom: 80%;
+    color: white;
+    opacity: 1;
+}
+
+
+.icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+/* Animazione di fade-in */
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Stile per la sezione About Me */
+#about-me {
+    background-color: white; /* Sfondo bianco */
+    color: black; /* Colore del testo */
+    padding: 50px 20px; /* Spaziatura interna */
+    text-align: center; /* Centrare il contenuto */
+    margin-top: 100vh; /* Posiziona la sezione sotto il video */
+    width: 100%;
+}
+
+#about-me h2 {
+    font-size: 2.5em; /* Dimensione del titolo */
+    margin-bottom: 20px;
+    font-family: 'Galada';
+
+}
+#about-me #intro {
+    display: flex;
+    flex-direction: row; /* Mantiene gli elementi in fila */
+    justify-content: space-between; /* Distanza tra gli elementi */
+    align-items: center; /* Allinea verticalmente al centro */
+    gap: 20px; /* Spaziatura tra testo e immagine */
+    max-width: 800px; /* Limita la larghezza totale per evitare dispersione */
+    margin: 0 auto; /* Centra il contenitore */
+}
+#about-me p {
+    flex: 1; /* Permette al testo di occupare spazio disponibile */
+    font-size: 1.5em;
+    font-weight: 500;
+    line-height: 1.6;
+    margin: 0;
+    font-family: "Indie Flower", sans-serif;
+    text-align: left;
+}
+
+
+#about-me img {
+    width: 150px; /* Dimensione dell'immagine */
+    height: auto; /* Mantiene le proporzioni */
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0; /* Impedisce che l'immagine si ridimensioni */
+}
+
+
+#back_up_arrow {
+    position: fixed;
+    width: 3vw; /* Dimensioni del pulsante */
+    height: 3vw;
+    bottom: -10vw; /* Posizionato fuori dalla vista inizialmente */
+    right: 50%;
+    font-size: 2em;
+    color: white;
+    background-color: blueviolet;
+    opacity: .7;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 999;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transform: translateY(100%); /* Nascondilo fuori schermo */
+    transition: transform 0.3s ease, bottom 0.3s ease; /* Aggiungi transizione */
+}
+
+#back_up_arrow.show {
+    transform: translateY(0); /* Rendilo visibile */
+    bottom: 10vw;
+}
+
+#back_up_arrow:hover {
+    transform: scale(1.1);
+    background-color: rgb(147, 70, 219);
+}
+
+
+#back_up_arrow .material-symbols-outlined {
+    font-size: 100%;
+}

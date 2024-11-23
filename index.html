@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Kiralu2010's Portal</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <link rel="stylesheet" href="css/content.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+ 
+</head>
+
+<body>
+    <!-- Video di sfondo -->
+    <video autoplay loop muted playsinline id="background-video">
+        <source src="assets/video/Sfondo2.mp4" type="video/mp4">
+        Il tuo browser non supporta i video HTML5.
+    </video>
+
+    <!-- Header con i pulsanti -->
+    <header id="header">
+
+        <button onclick="scrollToAbout()">
+            <span class="material-symbols-outlined">
+                question_mark
+            </span>
+            About me
+        </button>
+        <div id="social-buttons-box">
+            <!-- Pulsante TikTok -->
+            <a href="https://www.tiktok.com/@kiralu2010?_t=8rLALJXMUtC&_r=1" target="_blank">
+                <div id="social_button">
+                    <img src="assets/images/tiktok_nobg.png" alt="TikTok Icon">
+                    <p>TikTok</p>
+                </div>
+            </a>
+
+            <!-- Pulsante Twitter -->
+            <a href="https://x.com/Kiralu201?t=Yo6Gw2C_1lMA7k7WdwZQxg&s=09" target="_blank">
+                <div id="social_button">
+                    <img src="assets/images/twitter.png" alt="Twitter Icon">
+                    <p>Twitter</p>
+                </div>
+            </a>
+
+            <!-- Pulsante Bluesky -->
+            <a href="https://bsky.app/profile/kira1010.bsky.social" target="_blank">
+                <div id="social_button">
+                    <p>Bluesky</p>
+                    <img src="assets/images/blyesky_nobg.png" alt="Bluesky Icon">
+                    
+                </div>
+            </a>
+            <!-- Pulsante Instagram -->
+            <a href="https://www.instagram.com/kiralu1020?igsh=MTRld3B3Yno2eWsxMA==" target="_blank">
+                <div id="social_button">
+                    <img src="assets/images/instagram_nobg.png" alt="Instagram Icon">
+                    <p>Instagram</p>
+                </div>
+            </a>
+        </div>
+    </header>
+
+    <!-- Contenuto sovrapposto al video -->
+    <div class="content">
+        <img src="assets/images/pfp.png" alt="Profile Picture" id="pfp">
+        <div id="title">
+            <h1>Kiralu's</h1>
+            <h3>Social Portal!</h3>
+        </div>
+
+        <div id="social-buttons-box">
+            <!-- Pulsante TikTok -->
+            <a href="https://www.tiktok.com/@kiralu2010?_t=8rLALJXMUtC&_r=1" target="_blank">
+                <div id="social_button">
+                    <p>TikTok</p>
+                    <img src="assets/images/tiktok_social.png" alt="TikTok Icon">
+                
+                </div>
+            </a>
+
+            <!-- Pulsante Twitter -->
+            <a href="https://x.com/Kiralu201?t=Yo6Gw2C_1lMA7k7WdwZQxg&s=09" target="_blank">
+                <div id="social_button">
+                    <img src="assets/images/twitter.png" alt="Twitter Icon">
+                    <p>Twitter</p>
+                </div>
+            </a>
+
+            <!-- Pulsante Bluesky -->
+            <a href="https://bsky.app/profile/kira1010.bsky.social" target="_blank">
+                <div id="social_button">
+                    <img src="assets/images/bluesky.png" alt="Bluesky Icon">
+                    <p>Bluesky</p>
+                </div>
+            </a>
+            <!-- Pulsante Instagram -->
+            <a href="https://www.instagram.com/kiralu1020?igsh=MTRld3B3Yno2eWsxMA==" target="_blank">
+                <div id="social_button">
+                    <img src="assets/images/instagram.png" alt="Instagram Icon">
+                    <p>Instagram</p>
+                </div>
+            </a>
+        </div>
+
+        <section id="about-me">
+            <h2>About Me</h2>
+            <div id="intro">
+                <p>
+                Hi, im a beginner editor and an artist from Italy who loves to experiment, I love almost anything in the multimedia world such as animation, digital drawing and editing. And this is my social portal where you can be teletrasported to each of my social media.
+            </p>
+            <img src="assets/images/art1.jpg" alt="myart">
+            </div>
+            
+        </section>
+
+        <button onclick="scrollToTop()">
+            <div id="back_up_arrow">
+                <span class="material-symbols-outlined">
+                    arrow_upward
+                </span>
+            </div>
+        </button>
+        
+        <footer>
+            <div class="footer-left">
+                <p>© 2024 Kiralu2010. All rights reserved.</p>
+            </div>
+            <div class="footer-right">
+                <p>Contact me: </p>
+                <a href="https://www.tiktok.com/@kiralu2010?_t=8rLALJXMUtC&_r=1" target="_blank">
+                    <p >Tiktok: @kiralu2010 
+                        <span class="material-symbols-outlined">
+                        open_in_new
+                        </span>
+                    </p>
+                    
+                </a>
+                
+                <a href="https://x.com/Kiralu201?t=Yo6Gw2C_1lMA7k7WdwZQxg&s=09" target="_blank">
+                    <p >Twitter: @Kiralu201
+                        <span class="material-symbols-outlined">
+                        open_in_new
+                        </span>
+                    </p>
+                </a>
+                <a href="https://www.instagram.com/kiralu1020?igsh=MTRld3B3Yno2eWsxMA==" target="_blank">
+                    <p >Instagram: kiralu2010
+                        <span class="material-symbols-outlined">
+                        open_in_new
+                        </span>
+                    </p>
+                </a>
+                <a href="https://bsky.app/profile/kira1010.bsky.social" target="_blank">
+                    <p >Bluesky: @kira1010.bsky.social
+                        <span class="material-symbols-outlined">
+                        open_in_new
+                        </span>
+                    </p>
+                </a>
+            </div>
+        </footer>
+        <!-- Sezione About Me -->
+        
+
+    </div>
+
+    <script src="js/script.js" async defer></script>
+</body>
+
+</html>
