@@ -1,7 +1,7 @@
 /* Adattamenti reattivi */
 @media (max-height: 1400px) {
     header {
-        height: 16vw;
+        height: 5vw;
     }
     header button {
         font-size: 1.2em;
@@ -43,7 +43,7 @@
 }
 @media (max-width: 1180px) {
     header {
-        height: 5vw;
+        height: 7vw;
     }
     header button {
         font-size: 0.9em;
