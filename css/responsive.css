@@ -22,7 +22,7 @@
 }
 @media (max-height: 1180px) {
     header {
-        height: 12vw;
+        height: 5vw;
     }
     header button {
         font-size: 1em;
