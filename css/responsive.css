@@ -22,14 +22,14 @@
 }
 @media (max-height: 1180px) {
     header {
-        height: 5vw;
+        height: 6vw;
     }
     header button {
         font-size: 1em;
         padding: 8px 15px;
         margin: 0 10px;
     }
-    header #social_button {
+    header #social_button { 
         width: 3em;
         height: 3em;
         bottom: 10px;
