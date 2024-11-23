@@ -43,7 +43,7 @@
 }
 @media (max-width: 1180px) {
     header {
-        height: 10vw;
+        height: 5vw;
     }
     header button {
         font-size: 0.9em;
