@@ -33,6 +33,6 @@ app.get('/api', function(req, res) {
 
 })
 
-app.listen(3002, () => {
-    console.log("Server running on port 3002");
+app.listen(8000, () => {
+    console.log("Server running on port 8000");
 })

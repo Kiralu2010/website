@@ -34,7 +34,7 @@ async function checkSession() {
 // Funzione per aggiornare i contatori
 async function updateCounter(type) {
   try {
-    const res = await fetch('http://127.0.0.1:3002/api?' + type);
+    const res = await fetch('http://0.0.0.0:8000/api?' + type);
     if (!res.ok) {
       throw new Error('Errore nella risposta del server: ' + res.statusText);
     }
