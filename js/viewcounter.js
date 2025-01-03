@@ -1,3 +1,8 @@
+const isLocal = window.location.hostname === 'localhost';
+const apiBaseURL = isLocal
+  ? 'http://localhost:8000/api' // Sviluppo locale
+  : 'https://kiralu2010.github.io/website/api'; // Produzione
+
 const pageviewsCount = document.getElementById('pageviews-count');
 const visitsCount = document.getElementById('visits-count');
 
@@ -30,11 +35,6 @@ async function checkSession() {
     await updateCounter('type=pageview');  // Aggiungi solo una visualizzazione
   }
 }
-
-const isLocal = window.location.hostname === 'localhost';
-const apiBaseURL = isLocal
-  ? 'http://localhost:8000/api' // Sviluppo locale
-  : 'https://kiralu2010.github.io/website/api'; // Produzione
 
 // Funzione per aggiornare i contatori
 async function updateCounter(type) {
