@@ -78,6 +78,7 @@ header #social-buttons-box {
     transform: translate(-50%, -50%); /* Centra esattamente rispetto al centro dell'header */
     opacity: 0;
     visibility: hidden;
+    background-color: transparent;
     transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 

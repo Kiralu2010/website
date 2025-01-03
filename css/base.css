@@ -32,7 +32,7 @@ header {
     color: #444;
     font-weight: bold;
     transition: background-color 0.3s ease;
-    border-radius: 0 0 10px 10px;
+    border-radius: 0 0 30px 30px;
     padding-right: 20px;
 }
 header.scrolled {
@@ -58,7 +58,8 @@ header button {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 1px;
+    gap: 8px; /* Distanza tra l'icona e il testo, se presenti entrambi */
+    transition: background-color .3s ease-in-out, transform .3 ease-in-out;
 }
 
 header button:hover {
@@ -77,15 +78,15 @@ footer {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: auto; /* lascia la dimensione adattabile al contenuto */
+    height: 100%; /* lascia la dimensione adattabile al contenuto */
     background-color: rgb(34, 34, 34);
     color: #ffffff;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0; /* Rimuove i margini e il padding */
-    margin: 0; /* Rimuove eventuali margini che potrebbero causare spazio */
-    box-sizing: border-box; /* Assicura che il padding e il bordo non aumentino la larghezza */
+    padding: 0; 
+    margin: 0; 
+    box-sizing: border-box; 
     font-family: 'Roboto', sans-serif;
     font-weight: bold;
 
