@@ -1,4 +1,3 @@
-const isProduction = window.location.hostname !== 'localhost';
 
 
 const isLocal = window.location.hostname === 'localhost';
@@ -96,7 +95,7 @@ function generateUUID() {
 }
 
 function debug_log(string) {
-  if (!isProduction) {
+  if (isLocal) {
     console.log(string);
   }
 }
