@@ -1,3 +1,6 @@
+const isProduction = window.location.hostname !== 'localhost';
+
+
 const isLocal = window.location.hostname === 'localhost';
 const apiBaseURL = isLocal
   ? 'http://localhost:8000/api' // Sviluppo locale
@@ -17,22 +20,31 @@ if (savedData.visits !== undefined) {
   visitsCount.textContent = savedData.visits || 0;
 }
 
-// Controlla lo stato della visita
+// Verifica se è un nuovo utente o un visitatore di ritorno
+let isNewUser = !localStorage.getItem('userId');
+if (isNewUser) {
+  const userId = generateUUID();
+  localStorage.setItem('userId', userId);
+  debug_log('Nuovo utente rilevato:', userId);
+}
+
+// Gestisci la sessione e aggiorna i contatori
 checkSession();
 
 async function checkSession() {
-  console.log('Controllando la sessione...');
-
-  // Controlla se è la prima visita dell'utente
+  debug_log('Controllando la sessione...');
   const isNewVisit = !localStorage.getItem('visit');
-  
+
   if (isNewVisit) {
-    console.log('Prima visita rilevata. Aggiorno contatore visit-pageview.');
+    debug_log('Prima visita rilevata. Aggiorno contatore visit-pageview.');
     await updateCounter('type=visit-pageview'); // Incrementa visite e visualizzazioni
     localStorage.setItem('visit', 'true'); // Segna l'utente come "visitato"
   } else {
-    console.log('Visitatore di ritorno. Aggiorno contatore pageview.');
-    await updateCounter('type=pageview'); // Incrementa solo le visualizzazioni
+    debug_log('Visitatore di ritorno. Aspetto per incrementare pageview.');
+    setTimeout(async () => {
+      debug_log('5 secondi trascorsi. Aggiorno contatore pageview.');
+      await updateCounter('type=pageview'); // Incrementa solo le visualizzazioni
+    }, 5000); // Attendi 5 secondi prima di aggiornare le visualizzazioni
   }
 }
 
@@ -46,7 +58,7 @@ async function updateCounter(type) {
 
     const data = await res.json();
 
-    console.log('Dati ricevuti dal server:', data);
+    debug_log('Dati ricevuti dal server:', data);
 
     // Se i dati sono validi, aggiorna i contatori
     if (data.pageviews !== undefined && data.pageviews !== 0) {
@@ -62,14 +74,29 @@ async function updateCounter(type) {
 
         // Salva i nuovi dati in localStorage
         localStorage.setItem('counterData', JSON.stringify(data));
-        console.log('Contatori aggiornati con nuovi valori');
+        debug_log('Contatori aggiornati con nuovi valori');
       } else {
-        console.log('I valori dei contatori non sono cambiati');
+        debug_log('I valori dei contatori non sono cambiati');
       }
     } else {
-      console.log('Contatori non aggiornati: valore pageviews è 0');
+      debug_log('Contatori non aggiornati: valore pageviews è 0');
     }
   } catch (error) {
     console.error('Errore fetch:', error);
+  }
+}
+
+// Funzione per generare un UUID univoco per ogni utente
+function generateUUID() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0,
+      v = c === 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
+
+function debug_log(string) {
+  if (!isProduction) {
+    console.log(string);
   }
 }
