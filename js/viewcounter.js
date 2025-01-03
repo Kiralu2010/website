@@ -3,6 +3,13 @@ const apiBaseURL = isLocal
   ? 'http://localhost:8000/api' // Sviluppo locale
   : 'https://distinctive-ermina-randomcodestudio-ed635444.koyeb.app/api'; // Produzione
 
+// Funzione per loggare solo in modalità di sviluppo
+function log(message) {
+  if (isLocal) {
+    console.log(message);
+  }
+}
+
 const pageviewsCount = document.getElementById('pageviews-count');
 const visitsCount = document.getElementById('visits-count');
 
@@ -21,17 +28,17 @@ if (savedData.visits !== undefined) {
 checkSession();
 
 async function checkSession() {
-  console.log('Controllando la sessione...');
+  log('Controllando la sessione...');
 
   // Verifica se l'utente ha già visitato il sito (tracciato tramite un cookie)
   const visitCookie = getCookie('visited');
 
   if (!visitCookie) {
-    console.log('Prima visita rilevata. Aggiorno contatore visite.');
+    log('Prima visita rilevata. Aggiorno contatore visite.');
     await updateCounter('type=visit-pageview'); // Incrementa le visite
     setCookie('visited', 'true', 365); // Imposta il cookie per evitare conteggi successivi
   } else {
-    console.log('Visitatore di ritorno. Non aggiorno subito il contatore delle visualizzazioni.');
+    log('Visitatore di ritorno. Non aggiorno subito il contatore delle visualizzazioni.');
     // Se è un visitatore di ritorno, non incrementiamo subito
     // Iniziamo il timer per incrementare le visualizzazioni dopo 5 secondi
     startPageviewTimer();
@@ -48,7 +55,7 @@ async function updateCounter(type) {
 
     const data = await res.json();
 
-    console.log('Dati ricevuti dal server:', data);
+    log('Dati ricevuti dal server:', data);
 
     // Se i dati sono validi, aggiorna i contatori
     if (data.pageviews !== undefined && data.pageviews !== 0) {
@@ -64,12 +71,12 @@ async function updateCounter(type) {
 
         // Salva i nuovi dati in localStorage
         localStorage.setItem('counterData', JSON.stringify(data));
-        console.log('Contatori aggiornati con nuovi valori');
+        log('Contatori aggiornati con nuovi valori');
       } else {
-        console.log('I valori dei contatori non sono cambiati');
+        log('I valori dei contatori non sono cambiati');
       }
     } else {
-      console.log('Contatori non aggiornati: valore pageviews è 0');
+      log('Contatori non aggiornati: valore pageviews è 0');
     }
   } catch (error) {
     console.error('Errore fetch:', error);
@@ -82,14 +89,14 @@ function startPageviewTimer() {
     sessionStorage.setItem('pageviewTimerStarted', 'true');
     
     const timer = setTimeout(async () => {
-      console.log('5 secondi trascorsi, aggiorno il contatore delle visualizzazioni.');
+      log('5 secondi trascorsi, aggiorno il contatore delle visualizzazioni.');
       await updateCounter('type=pageview'); // Incrementa solo le visualizzazioni
     }, 5000); // 5000 millisecondi = 5 secondi
 
     // Salva il timer in sessionStorage per fermarlo se necessario
     sessionStorage.setItem('pageviewTimer', timer);
   } else {
-    console.log('Il timer è già stato avviato per questa sessione.');
+    log('Il timer è già stato avviato per questa sessione.');
   }
 }
 
@@ -114,6 +121,6 @@ window.addEventListener('beforeunload', () => {
   const timer = sessionStorage.getItem('pageviewTimer');
   if (timer) {
     clearTimeout(timer); // Cancella il timer se l'utente sta per lasciare la pagina
-    console.log('Timer cancellato, l\'utente sta per lasciare la pagina.');
+    log('Timer cancellato, l\'utente sta per lasciare la pagina.');
   }
 });
