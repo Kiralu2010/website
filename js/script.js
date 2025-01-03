@@ -45,9 +45,3 @@ window.addEventListener("scroll", scrolledToBottom);
 window.addEventListener("scroll", changeHeaderState);
 
 
-function visits_counter() {
-    const pageviewscount = document.getElementById("pageviews-count")
-    const visitscount = document.getElementById("visits-count")
-
-    sessionStorage.setItem('visit', 'x')
-}
