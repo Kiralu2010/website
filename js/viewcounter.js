@@ -1,7 +1,7 @@
 const isLocal = window.location.hostname === 'localhost';
 const apiBaseURL = isLocal
   ? 'http://localhost:8000/api' // Sviluppo locale
-  : 'https://kiralu2010.github.io/website/api'; // Produzione
+  : 'https://distinctive-ermina-randomcodestudio-ed635444.koyeb.app/api'; // Produzione
 
 const pageviewsCount = document.getElementById('pageviews-count');
 const visitsCount = document.getElementById('visits-count');
