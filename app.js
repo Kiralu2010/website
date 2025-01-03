@@ -22,6 +22,7 @@ app.get('/api', function(req, res) {
     if (req.query.type === 'visit-pageview') {
         obj.visits = obj.visits+1;
     }
+
     // Updates pageviews and visits (conditional upon URL param value)
 
     const newJSON = JSON.stringify(obj);

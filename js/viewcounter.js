@@ -1,5 +1,3 @@
-
-
 const isLocal = window.location.hostname === 'localhost';
 const apiBaseURL = isLocal
   ? 'http://localhost:8000/api' // Sviluppo locale
@@ -19,31 +17,24 @@ if (savedData.visits !== undefined) {
   visitsCount.textContent = savedData.visits || 0;
 }
 
-// Verifica se è un nuovo utente o un visitatore di ritorno
-let isNewUser = !localStorage.getItem('userId');
-if (isNewUser) {
-  const userId = generateUUID();
-  localStorage.setItem('userId', userId);
-  debug_log('Nuovo utente rilevato:', userId);
-}
-
-// Gestisci la sessione e aggiorna i contatori
+// Controlla lo stato della visita
 checkSession();
 
 async function checkSession() {
-  debug_log('Controllando la sessione...');
-  const isNewVisit = !localStorage.getItem('visit');
+  console.log('Controllando la sessione...');
 
-  if (isNewVisit) {
-    debug_log('Prima visita rilevata. Aggiorno contatore visit-pageview.');
-    await updateCounter('type=visit-pageview'); // Incrementa visite e visualizzazioni
-    localStorage.setItem('visit', 'true'); // Segna l'utente come "visitato"
+  // Verifica se l'utente ha già visitato il sito (tracciato tramite un cookie)
+  const visitCookie = getCookie('visited');
+
+  if (!visitCookie) {
+    console.log('Prima visita rilevata. Aggiorno contatore visite.');
+    await updateCounter('type=visit-pageview'); // Incrementa le visite
+    setCookie('visited', 'true', 365); // Imposta il cookie per evitare conteggi successivi
   } else {
-    debug_log('Visitatore di ritorno. Aspetto per incrementare pageview.');
-    setTimeout(async () => {
-      debug_log('5 secondi trascorsi. Aggiorno contatore pageview.');
-      await updateCounter('type=pageview'); // Incrementa solo le visualizzazioni
-    }, 5000); // Attendi 5 secondi prima di aggiornare le visualizzazioni
+    console.log('Visitatore di ritorno. Non aggiorno subito il contatore delle visualizzazioni.');
+    // Se è un visitatore di ritorno, non incrementiamo subito
+    // Iniziamo il timer per incrementare le visualizzazioni dopo 5 secondi
+    startPageviewTimer();
   }
 }
 
@@ -57,7 +48,7 @@ async function updateCounter(type) {
 
     const data = await res.json();
 
-    debug_log('Dati ricevuti dal server:', data);
+    console.log('Dati ricevuti dal server:', data);
 
     // Se i dati sono validi, aggiorna i contatori
     if (data.pageviews !== undefined && data.pageviews !== 0) {
@@ -73,29 +64,56 @@ async function updateCounter(type) {
 
         // Salva i nuovi dati in localStorage
         localStorage.setItem('counterData', JSON.stringify(data));
-        debug_log('Contatori aggiornati con nuovi valori');
+        console.log('Contatori aggiornati con nuovi valori');
       } else {
-        debug_log('I valori dei contatori non sono cambiati');
+        console.log('I valori dei contatori non sono cambiati');
       }
     } else {
-      debug_log('Contatori non aggiornati: valore pageviews è 0');
+      console.log('Contatori non aggiornati: valore pageviews è 0');
     }
   } catch (error) {
     console.error('Errore fetch:', error);
   }
 }
 
-// Funzione per generare un UUID univoco per ogni utente
-function generateUUID() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-    const r = (Math.random() * 16) | 0,
-      v = c === 'x' ? r : (r & 0x3) | 0x8;
-    return v.toString(16);
-  });
-}
+// Funzione per iniziare il timer per incrementare le visualizzazioni
+function startPageviewTimer() {
+  if (!sessionStorage.getItem('pageviewTimerStarted')) {
+    sessionStorage.setItem('pageviewTimerStarted', 'true');
+    
+    const timer = setTimeout(async () => {
+      console.log('5 secondi trascorsi, aggiorno il contatore delle visualizzazioni.');
+      await updateCounter('type=pageview'); // Incrementa solo le visualizzazioni
+    }, 5000); // 5000 millisecondi = 5 secondi
 
-function debug_log(string) {
-  if (isLocal) {
-    console.log(string);
+    // Salva il timer in sessionStorage per fermarlo se necessario
+    sessionStorage.setItem('pageviewTimer', timer);
+  } else {
+    console.log('Il timer è già stato avviato per questa sessione.');
   }
 }
+
+// Funzione per ottenere un cookie
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+  return null;
+}
+
+// Funzione per impostare un cookie
+function setCookie(name, value, days) {
+  const d = new Date();
+  d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+  const expires = "expires=" + d.toUTCString();
+  document.cookie = `${name}=${value};${expires};path=/`;
+}
+
+// Funzione per fermare il timer (se l'utente lascia la pagina prima dei 5 secondi)
+window.addEventListener('beforeunload', () => {
+  const timer = sessionStorage.getItem('pageviewTimer');
+  if (timer) {
+    clearTimeout(timer); // Cancella il timer se l'utente sta per lasciare la pagina
+    console.log('Timer cancellato, l\'utente sta per lasciare la pagina.');
+  }
+});
