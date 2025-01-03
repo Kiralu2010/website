@@ -6,33 +6,33 @@ const apiBaseURL = isLocal
 const pageviewsCount = document.getElementById('pageviews-count');
 const visitsCount = document.getElementById('visits-count');
 
-// Verifica se la sessione è già stata trattata
-var viewCounterWasSet = sessionStorage.getItem('viewCounterWasSet');
-var counterData = JSON.parse(sessionStorage.getItem('value')); // Recupera i dati se esistono
+// Recupera i dati salvati in localStorage
+const savedData = JSON.parse(localStorage.getItem('counterData')) || {};
 
-// Imposta i contatori nel front-end se sono già stati salvati nella sessione
-if (counterData) {
-  pageviewsCount.textContent = counterData.pageviews || 0;
-  visitsCount.textContent = counterData.visits || 0;
+// Imposta i contatori nel front-end con i valori salvati (se presenti)
+if (savedData.pageviews !== undefined) {
+  pageviewsCount.textContent = savedData.pageviews || 0;
+}
+if (savedData.visits !== undefined) {
+  visitsCount.textContent = savedData.visits || 0;
 }
 
-// Se non è stato impostato il contatore o la sessione non è ancora stata trattata
-if (viewCounterWasSet !== 'true') {
-  checkSession();
-}
+// Controlla lo stato della visita
+checkSession();
 
 async function checkSession() {
-  // Log per il controllo
   console.log('Controllando la sessione...');
 
-  // Controllo della sessione per la prima visita
-  if (!sessionStorage.getItem('visit')) {
+  // Controlla se è la prima visita dell'utente
+  const isNewVisit = !localStorage.getItem('visit');
+  
+  if (isNewVisit) {
     console.log('Prima visita rilevata. Aggiorno contatore visit-pageview.');
-    await updateCounter('type=visit-pageview');  // Aggiungi una visita e una visualizzazione
-    sessionStorage.setItem('visit', 'x'); // Imposta una sola volta per la visita
+    await updateCounter('type=visit-pageview'); // Incrementa visite e visualizzazioni
+    localStorage.setItem('visit', 'true'); // Segna l'utente come "visitato"
   } else {
     console.log('Visitatore di ritorno. Aggiorno contatore pageview.');
-    await updateCounter('type=pageview');  // Aggiungi solo una visualizzazione
+    await updateCounter('type=pageview'); // Incrementa solo le visualizzazioni
   }
 }
 
@@ -46,24 +46,22 @@ async function updateCounter(type) {
 
     const data = await res.json();
 
-    // Log per vedere i dati ricevuti dal server
     console.log('Dati ricevuti dal server:', data);
 
-    // Se la risposta è valida e i valori sono cambiati, aggiorna i contatori
+    // Se i dati sono validi, aggiorna i contatori
     if (data.pageviews !== undefined && data.pageviews !== 0) {
-      // Confronta i valori salvati con quelli appena ricevuti
-      const savedData = JSON.parse(sessionStorage.getItem('value')) || {};
+      const currentData = JSON.parse(localStorage.getItem('counterData')) || {};
 
-      // Se i valori sono diversi, aggiorna i contatori
-      if (savedData.pageviews !== data.pageviews || savedData.visits !== data.visits) {
+      // Aggiorna i contatori solo se i valori sono cambiati
+      if (
+        currentData.pageviews !== data.pageviews ||
+        currentData.visits !== data.visits
+      ) {
         pageviewsCount.textContent = data.pageviews || 0;
         visitsCount.textContent = data.visits || 0;
 
-        // Salva i nuovi valori nel sessionStorage
-        sessionStorage.setItem('value', JSON.stringify(data));
-
-        // Imposta il flag per non chiamare più la funzione
-        sessionStorage.setItem('viewCounterWasSet', 'true');
+        // Salva i nuovi dati in localStorage
+        localStorage.setItem('counterData', JSON.stringify(data));
         console.log('Contatori aggiornati con nuovi valori');
       } else {
         console.log('I valori dei contatori non sono cambiati');
