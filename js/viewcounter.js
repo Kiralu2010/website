@@ -31,10 +31,15 @@ async function checkSession() {
   }
 }
 
+const isLocal = window.location.hostname === 'localhost';
+const apiBaseURL = isLocal
+  ? 'http://localhost:8000/api' // Sviluppo locale
+  : 'https://kiralu2010.github.io/website/api'; // Produzione
+
 // Funzione per aggiornare i contatori
 async function updateCounter(type) {
   try {
-    const res = await fetch('http://0.0.0.0:8000/api?' + type);
+    const res = await fetch(`${apiBaseURL}?${type}`);
     if (!res.ok) {
       throw new Error('Errore nella risposta del server: ' + res.statusText);
     }
